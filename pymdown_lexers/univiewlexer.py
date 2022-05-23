@@ -50,7 +50,7 @@ class UniviewLexer(RegexLexer):
 			# # Operators and Punctuation
 			(r'\.\.=?', Operator),
 			(r'[{}()\[\]\#,.;]', Punctuation),
-			(r'[+\-*/%&|<>^!~@=:?]', Operator),
+			(r'[+\-*/%&|<>^!~\@\$=:?]', Operator),
 
 			# Identifiers
 			(r'[a-zA-Z_]\w*', Name),
