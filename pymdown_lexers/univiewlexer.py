@@ -13,7 +13,7 @@ class UniviewLexer(RegexLexer):
 	mimetypes = ['text/uniview', 'text/x-uniview']
 
 	keyword_types = (words((
-		'u8', 'u16', 'u32', 'u64', 'i8', 'i16', 'i32', 'i64',
+		'u8', 'u16', 'u32', 'u64', 'i8', 'i16', 'i32', 'i64', 'int',
 		'size', 'f32', 'f64', 'cstring', 'bool',
 	), suffix=r'\b'), Keyword.Type)
 
@@ -32,7 +32,7 @@ class UniviewLexer(RegexLexer):
 			(r'/\*', Comment.Multiline, 'comment'),
 			
 			# Keywords
-			(words(('as', 'else', 'external', 'if', 'return'),
+			(words(('as', 'else', 'external', 'if', 'return', 'delete', 'import'),
 			suffix=r'\b'), Keyword),
 
 			(r'(true|false)\b', Keyword.Constant),
@@ -40,6 +40,11 @@ class UniviewLexer(RegexLexer):
 			(r'let\b', Keyword.Declaration),
 			(r'fn\b', Keyword, 'funcname'),
 			(r'(struct|class)\b', Keyword, 'typename'),
+
+			# Path separators, so types don't catch them.
+			(r'::\b', Text),
+			# Types in positions.
+			(r'(?::|->)', Text, 'typename'),
 
 			(r'[0-9][0-9_]*', Number.Integer, 'number_lit'),
 
